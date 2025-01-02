@@ -14,13 +14,35 @@
 
 int	main(int argc, char *argv[])
 {
-	t_stack *a;
-	t_stack *b;
+	t_head_tail *a;
+	t_head_tail *b;
 
+	a = NULL;
+	b = NULL;
 	if (argc == 1)
 		return (1);
 	if (argc == 2)
 		argv = ft_split(argv[1], ' ');
 	stack_init(&a, argv, argc == 2);
+	sa(&a);
+	print_stack(&a);
+	b = malloc(sizeof(t_head_tail));
+	if (b == NULL)
+		return (1);
+	b->tail = NULL;
+	b->head = NULL;
+	pb(&a, &b);
+	pb(&a, &b);
+
+	ft_printf("\n");
+	print_stack(&b);
+	ft_printf("\n");
+	print_stack(&a);
+	
+	rrr(&a, &b);
+	ft_printf("\n");
+	print_stack(&b);
+	ft_printf("\n");
+	print_stack(&a);
 	return (0);
 }
