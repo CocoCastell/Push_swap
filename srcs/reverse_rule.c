@@ -12,26 +12,26 @@
 
 #include "../includes/push_swap.h"
 
-void	rra(t_head_tail **stack)
+void	ft_rra(t_head_tail **a, t_head_tail **b, t_list **op_list)
 {
-	if (*stack == NULL || (*stack)->head == NULL)
+	if (*a == NULL || (*a)->head == NULL)
 		return ;
-	if ((*stack)->head == (*stack)->tail)
+	if ((*a)->head == (*a)->tail)
 		return ;
-	(*stack)->head = (*stack)->tail;
-	(*stack)->tail = (*stack)->head->previous;
-	ft_printf("rra\n");
+	(*a)->head = (*a)->tail;
+	(*a)->tail = (*a)->head->previous;
+	save_op(a, b, op_list, rra);
 }
 
-void	rrb(t_head_tail **stack)
+void	ft_rrb(t_head_tail **b, t_head_tail **a, t_list **op_list)
 {
-	if (*stack == NULL || (*stack)->head == NULL)
+	if (*b == NULL || (*b)->head == NULL)
 		return ;
-	if ((*stack)->head == (*stack)->tail)
+	if ((*b)->head == (*b)->tail)
 		return ;
-	(*stack)->head = (*stack)->tail;
-	(*stack)->tail = (*stack)->head->previous;
-	ft_printf("rrb\n");
+	(*b)->head = (*b)->tail;
+	(*b)->tail = (*b)->head->previous;
+	save_op(a, b, op_list, rrb);
 }
 
 static void	silent_rr(t_head_tail **stack)
@@ -44,9 +44,9 @@ static void	silent_rr(t_head_tail **stack)
 	(*stack)->tail = (*stack)->head->previous;
 }
 
-void	rrr(t_head_tail **a, t_head_tail **b)
+void	ft_rrr(t_head_tail **a, t_head_tail **b, t_list **op_list)
 {
 	silent_rr(a);
 	silent_rr(b);
-	ft_printf("rrr\n");
+	save_op(a, b, op_list, rrr);
 }

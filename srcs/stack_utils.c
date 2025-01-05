@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                        :+:      :+:    :+:   */
+/*   stack_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,27 +12,35 @@
 
 #include "../includes/push_swap.h"
 
-int	main(int argc, char *argv[])
+void	save_op(t_head_tail **a, t_head_tail **b, t_list **op_list, enum e_op op)
 {
-	t_head_tail *a;
-	t_head_tail *b;
-	t_list	*op;
+	t_list	*new;
 
-	a = NULL;
-	b = NULL;
-	if (argc == 1)
-		return (1);
-	if (argc == 2)
-		argv = ft_split(argv[1], ' ');
-	stack_init(&a, argv, argc == 2);
-	op = malloc(sizeof(t_list));
-	if (op == NULL)
-		return (1);
-	op->next = NULL;
-	op->content = NULL;
-	print_op(&op);
-	ft_sa(&a, &b, &op);
-	ft_sa(&a, &b, &op);
-	ft_sa(&a, &b, &op);
-	return (0);
+	new = ft_lstnew((void *)(uintptr_t)op);
+	if (!new)
+	{
+		free_stack(a);
+		free_stack(b);
+		free(op_list);
+		write(2, "Error\n", 6);
+		exit(1);
+	}
+	ft_lstadd_back(op_list, new);
+}
+
+void	print_op(t_list **op)
+{
+	t_list	*current;
+	
+	int i = 1;
+	if (op == NULL ||  *op == NULL)
+		return ;
+	current = *op;
+	while (current != NULL)
+	{
+		ft_printf("%d - ", i);
+		ft_printf("%d\n", current->content);
+		i++;
+		current = current->next;
+	}
 }

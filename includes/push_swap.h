@@ -20,6 +20,8 @@
 # include "../libft/gnl_b/includes/get_next_line_bonus.h"
 # include "../libft/ft_printf_b/includes/ft_printf_bonus.h"
 
+//Structures and enumerations
+
 typedef struct	s_stack
 {
 	int	real_value;
@@ -28,34 +30,54 @@ typedef struct	s_stack
 	struct s_stack *next;
 }		t_stack;
 
-typedef struct s_head_tail
+
+typedef struct	s_head_tail
 {
-	t_stack *head;
-	t_stack *tail;
+	t_stack	*head;
+	t_stack	*tail;
 }		t_head_tail;
+
+enum 	e_op
+{
+	sa,
+	sb,
+	ss,
+	pa,
+	pb,
+	ra,
+	rb,
+	rr,
+	rra,
+	rrb,
+	rrr
+};
 
 //temporaire
 void    print_stack(t_head_tail **a);
 
+//Stack
+
 void	stack_init(t_head_tail **a, char **argv, bool flag_argc_2);
 void	free_stack(t_head_tail **stack);
-int	check_synthax(char *str);
 void	error_free(bool flag_argc_2, char **argv, t_head_tail **stack);
 void	free_matrix(char **argv);
+void	print_op(t_list **op);
 int	check_repetition(long nbr, t_head_tail **a);
+int	check_synthax(char *str);
 
 //Instructions
 
-void	sa(t_head_tail **stack);
-void	sb(t_head_tail **stack);
-void    ss(t_head_tail **a, t_head_tail **b);
-void	pa(t_head_tail **a, t_head_tail **b);
-void	pb(t_head_tail **a, t_head_tail **b);
-void	rr(t_head_tail **a, t_head_tail **b);
-void	ra(t_head_tail **stack);
-void	rb(t_head_tail **stack);
-void	rra(t_head_tail **stack);
-void	rrb(t_head_tail **stack);
-void	rrr(t_head_tail **a, t_head_tail **b);
+void	ft_sa(t_head_tail **a, t_head_tail **b, t_list **op_list);
+void	ft_sb(t_head_tail **b, t_head_tail **a, t_list **op_list);
+void    ft_ss(t_head_tail **a, t_head_tail **b, t_list **op_list);
+void	ft_pa(t_head_tail **a, t_head_tail **b, t_list **op_list);
+void	ft_pb(t_head_tail **a, t_head_tail **b, t_list **op_list);
+void	ft_rr(t_head_tail **a, t_head_tail **b, t_list **op_list);
+void	ft_ra(t_head_tail **a, t_head_tail **b, t_list **op_list);
+void	ft_rb(t_head_tail **b, t_head_tail **a, t_list **op_list);
+void	ft_rra(t_head_tail **a, t_head_tail **b, t_list **op_list);
+void	ft_rrb(t_head_tail **b, t_head_tail **a, t_list **op_list);
+void	ft_rrr(t_head_tail **a, t_head_tail **b, t_list **op_list);
+void	save_op(t_head_tail **a, t_head_tail **b, t_list **op_list, enum e_op op);
 
 #endif

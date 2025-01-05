@@ -12,26 +12,26 @@
 
 #include "../includes/push_swap.h"
 
-void	ra(t_head_tail **stack)
+void	ft_ra(t_head_tail **a, t_head_tail **b, t_list **op_list)
 {
-	if (*stack == NULL || (*stack)->head == NULL)
+	if (*a == NULL || (*a)->head == NULL)
 		return ;
-	if ((*stack)->head == (*stack)->tail)
+	if ((*a)->head == (*a)->tail)
 		return ;	
-	(*stack)->tail = (*stack)->head;
-	(*stack)->head = (*stack)->head->next;
-	ft_printf("ra\n");
+	(*a)->tail = (*a)->head;
+	(*a)->head = (*a)->head->next;
+	save_op(a, b, op_list, ra);
 }
 
-void	rb(t_head_tail **stack)
+void	ft_rb(t_head_tail **b, t_head_tail **a, t_list **op_list)
 {
-	if (*stack == NULL || (*stack)->head == NULL)
+	if (*b == NULL || (*b)->head == NULL)
 		return ;
-	if ((*stack)->head == (*stack)->tail)
+	if ((*b)->head == (*b)->tail)
 		return ;
-	(*stack)->tail = (*stack)->head;
-	(*stack)->head = (*stack)->head->next;
-	ft_printf("rb\n");
+	(*b)->tail = (*b)->head;
+	(*b)->head = (*b)->head->next;
+	save_op(a, b, op_list, rb);
 }
 
 static void	silent_rotate(t_head_tail **stack)
@@ -44,9 +44,9 @@ static void	silent_rotate(t_head_tail **stack)
 	(*stack)->head = (*stack)->head->next;
 }
 
-void	rr(t_head_tail **a, t_head_tail **b)
+void	ft_rr(t_head_tail **a, t_head_tail **b, t_list **op_list)
 {
 	silent_rotate(a);
 	silent_rotate(b);
-	ft_printf("rr\n");
+	save_op(a, b, op_list, rr);
 }
