@@ -35,10 +35,13 @@ typedef struct	s_head_tail
 {
 	t_stack	*head;
 	t_stack	*tail;
+	t_list	*op_list;
+	int	size;
 }		t_head_tail;
 
 enum 	e_op
 {
+	null,
 	sa,
 	sb,
 	ss,
@@ -57,27 +60,33 @@ void    print_stack(t_head_tail **a);
 
 //Stack
 
-void	stack_init(t_head_tail **a, char **argv, bool flag_argc_2);
-void	free_stack(t_head_tail **stack);
-void	error_free(bool flag_argc_2, char **argv, t_head_tail **stack);
+void	print_op(t_list *op);
 void	free_matrix(char **argv);
-void	print_op(t_list **op);
-int	check_repetition(long nbr, t_head_tail **a);
+void	free_stack(t_head_tail **stack);
+void	stack_init(t_head_tail **a, t_head_tail **b, char **argv, bool flag_argc_2);
+void	error_free(bool flag_argc_2, char **argv, t_head_tail **a, t_head_tail **b);
+bool	is_sorted(t_head_tail **a);
 int	check_synthax(char *str);
+int	check_repetition(long nbr, t_head_tail **a);
 
 //Instructions
 
-void	ft_sa(t_head_tail **a, t_head_tail **b, t_list **op_list);
-void	ft_sb(t_head_tail **b, t_head_tail **a, t_list **op_list);
-void    ft_ss(t_head_tail **a, t_head_tail **b, t_list **op_list);
-void	ft_pa(t_head_tail **a, t_head_tail **b, t_list **op_list);
-void	ft_pb(t_head_tail **a, t_head_tail **b, t_list **op_list);
-void	ft_rr(t_head_tail **a, t_head_tail **b, t_list **op_list);
-void	ft_ra(t_head_tail **a, t_head_tail **b, t_list **op_list);
-void	ft_rb(t_head_tail **b, t_head_tail **a, t_list **op_list);
-void	ft_rra(t_head_tail **a, t_head_tail **b, t_list **op_list);
-void	ft_rrb(t_head_tail **b, t_head_tail **a, t_list **op_list);
-void	ft_rrr(t_head_tail **a, t_head_tail **b, t_list **op_list);
-void	save_op(t_head_tail **a, t_head_tail **b, t_list **op_list, enum e_op op);
+void	ft_sa(t_head_tail **a, t_head_tail **b);
+void	ft_sb(t_head_tail **a, t_head_tail **b);
+void    ft_ss(t_head_tail **a, t_head_tail **b);
+void	ft_pa(t_head_tail **a, t_head_tail **b);
+void	ft_pb(t_head_tail **a, t_head_tail **b);
+void	ft_rr(t_head_tail **a, t_head_tail **b);
+void	ft_ra(t_head_tail **a, t_head_tail **b);
+void	ft_rb(t_head_tail **a, t_head_tail **b);
+void	ft_rra(t_head_tail **a, t_head_tail **b);
+void	ft_rrb(t_head_tail **a, t_head_tail **b);
+void	ft_rrr(t_head_tail **a, t_head_tail **b);
+void	save_op(t_head_tail **a, t_head_tail **b, enum e_op op);
+
+//Sorting
+
+void	sort(t_head_tail **a, t_head_tail **b);
+void	sort_three(t_head_tail **a, t_head_tail **b);
 
 #endif

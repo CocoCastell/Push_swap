@@ -12,35 +12,45 @@
 
 #include "../includes/push_swap.h"
 
-/*void	pa(t_head_tail **a, t_head_tail **b, t_list **op_list)
+static void	push(t_head_tail **stack, t_stack **current)
 {
-        t_stack	*current;
+	if ((*stack)->head == NULL)
+	{
+		(*stack)->head = *current;
+		(*stack)->tail = *current;
+		(*current)->next = *current;
+		(*current)->previous = *current;
+	}
+	else
+	{
+		(*stack)->tail->next = *current;
+		(*current)->previous = (*stack)->tail;
+		(*current)->next = (*stack)->head;
+		(*current)->next->previous = *current;
+		(*stack)->head = *current;
+	}
+}
 
-	if ((*b)->head == NULL)
-		return ;
-	current = (*b)->head;
-	(*b)->tail->next = current->next;
-	(*b)->head = current->next;
-	current->next->previous = (*b)->tail;
-	(*a)->tail->next = current;
-	current->previous = (*a)->tail;
-	current->next = (*a)->head;
-	current->next->previous = current;
-	(*a)->head = current;
-	ft_printf("pa\n");
-}*/
-
-void    ft_pa(t_head_tail **a, t_head_tail **b, t_list **op_list)
+void    ft_pa(t_head_tail **a, t_head_tail **b)
 {
         t_stack *current;
 
         if ((*b)->head == NULL)
                 return ;
-        current = (*a)->head;
-        (*b)->tail->next = current->next;
-        (*b)->head = current->next;
-        (*b)->head->previous = (*a)->tail;
-        if ((*a)->head == NULL)
+        current = (*b)->head;
+	if ((*b)->head == (*b)->tail)
+	{
+		(*b)->tail = NULL;
+		(*b)->head = NULL;
+        }
+	else
+	{
+		(*b)->tail->next = current->next;
+		(*b)->head = current->next;
+		(*b)->head->previous = (*b)->tail;
+	}
+	push(a, &current);
+	/*if ((*a)->head == NULL)
         {
                 (*a)->head = current;
                 (*a)->tail = current;
@@ -54,21 +64,30 @@ void    ft_pa(t_head_tail **a, t_head_tail **b, t_list **op_list)
                 current->next = (*a)->head;
                 current->next->previous = current;
                 (*a)->head = current;
-        }
-	save_op(a, b, op_list, pb);
+        }*/
+	save_op(a, b, pa);
 }
 
-void	ft_pb(t_head_tail **a, t_head_tail **b, t_list **op_list)
+void	ft_pb(t_head_tail **a, t_head_tail **b)
 {
 	t_stack	*current;
 
 	if ((*a)->head == NULL)
 		return ;
 	current = (*a)->head;
-	(*a)->tail->next = current->next;
-	(*a)->head = current->next;
-	(*a)->head->previous = (*a)->tail;
-	if ((*b)->head == NULL)
+	if ((*a)->head == (*a)->tail)
+	{
+		(*a)->tail = NULL;
+		(*a)->head = NULL;
+	}
+	else
+	{
+		(*a)->tail->next = current->next;
+		(*a)->head = current->next;
+		(*a)->head->previous = (*a)->tail;
+	}
+	push(b, &current);
+	/*if ((*b)->head == NULL)
 	{
 		(*b)->head = current;
 		(*b)->tail = current;
@@ -82,6 +101,6 @@ void	ft_pb(t_head_tail **a, t_head_tail **b, t_list **op_list)
 		current->next = (*b)->head;
 		current->next->previous = current;
 		(*b)->head = current;
-	}
-	save_op(a, b, op_list, pb);
+	}*/
+	save_op(a, b, pb);
 }

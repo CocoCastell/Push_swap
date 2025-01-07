@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_utils.c                                        :+:      :+:    :+:   */
+/*   stack_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,35 +12,68 @@
 
 #include "../includes/push_swap.h"
 
-void	save_op(t_head_tail **a, t_head_tail **b, t_list **op_list, enum e_op op)
+void	save_op(t_head_tail **a, t_head_tail **b, enum e_op op)
 {
 	t_list	*new;
 
 	new = ft_lstnew((void *)(uintptr_t)op);
-	if (!new)
-	{
-		free_stack(a);
-		free_stack(b);
-		free(op_list);
-		write(2, "Error\n", 6);
-		exit(1);
-	}
-	ft_lstadd_back(op_list, new);
+	if (new == NULL)
+		error_free(1, NULL, a, b);
+	ft_lstadd_back(&((*a)->op_list), new);
 }
 
-void	print_op(t_list **op)
+static void	string_op(enum e_op op)
+{
+	char	*string[12];
+
+	if (op <0 || op > 11)
+		return ;
+	string[0] = "null";
+	string[1] = "sa";
+	string[2] = "sb";
+	string[3] = "ss";
+	string[4] = "pa";
+	string[5] = "pb";
+	string[6] = "ra";
+	string[7] = "rb";
+	string[8] = "rr";
+	string[9] = "rra";
+	string[10] = "rrb";
+	string[11] = "rrr";
+	ft_printf("%s\n", string[op]);
+}
+
+void	print_op(t_list *op)
 {
 	t_list	*current;
 	
-	int i = 1;
-	if (op == NULL ||  *op == NULL)
+	if (op == NULL)
 		return ;
-	current = *op;
+	current = op;
 	while (current != NULL)
 	{
-		ft_printf("%d - ", i);
-		ft_printf("%d\n", current->content);
-		i++;
+		string_op((enum e_op)(uintptr_t)current->content);
 		current = current->next;
 	}
+}
+
+bool	is_sorted(t_head_tail **a)
+{
+	t_stack	*next_node;
+	t_stack	*current;
+
+	if (a == NULL || *a == NULL || (*a)->head == NULL)
+		return (true);
+	next_node = (*a)->head->next;
+	current = (*a)->head;
+	if (current == next_node)
+		return (true);
+	while (next_node != (*a)->head)
+	{
+		if (current->normalised_value > next_node->normalised_value)
+			return (false);
+		current = next_node;
+		next_node = current->next;
+	}
+	return (true);
 }

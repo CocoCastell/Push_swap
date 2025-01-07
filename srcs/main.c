@@ -16,7 +16,6 @@ int	main(int argc, char *argv[])
 {
 	t_head_tail *a;
 	t_head_tail *b;
-	t_list	*op;
 
 	a = NULL;
 	b = NULL;
@@ -24,15 +23,13 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (argc == 2)
 		argv = ft_split(argv[1], ' ');
-	stack_init(&a, argv, argc == 2);
-	op = malloc(sizeof(t_list));
-	if (op == NULL)
-		return (1);
-	op->next = NULL;
-	op->content = NULL;
-	print_op(&op);
-	ft_sa(&a, &b, &op);
-	ft_sa(&a, &b, &op);
-	ft_sa(&a, &b, &op);
+	stack_init(&a, &b, argv, argc == 2);
+	ft_sa(&a, &b);
+	ft_ra(&a, &b);
+	//sort(&a, &b);
+	ft_printf("\n");	
+	print_op(a->op_list);
+	ft_printf("\n");
+	print_stack(&a);
 	return (0);
 }

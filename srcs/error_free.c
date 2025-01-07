@@ -29,7 +29,7 @@ void	free_stack(t_head_tail **stack)
 	t_stack *tmp;
 	t_stack	*current;
 
-	if (stack == NULL)
+	if (stack == NULL || *stack == NULL)
 		return ;
 	current = (*stack)->head;
 	while (current != (*stack)->tail)
@@ -43,9 +43,10 @@ void	free_stack(t_head_tail **stack)
 	(*stack)->tail = NULL;
 }
 
-void	error_free(bool flag_argc_2, char **argv, t_head_tail **stack)
+void	error_free(bool flag_argc_2, char **argv, t_head_tail **a, t_head_tail **b)
 {
-	free_stack(stack);
+	free_stack(a);
+	free_stack(b);
 	if (flag_argc_2)
 		free_matrix(argv);
 	write(2, "Error\n", 6);

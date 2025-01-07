@@ -12,40 +12,53 @@
 
 #include "../includes/push_swap.h"
 
-void	ft_sa(t_head_tail **a, t_head_tail **b, t_list **op_list)
+void	ft_sa(t_head_tail **a, t_head_tail **b)
 {
-	t_stack *current;
-
-	current = (*a)->head;
-	(*a)->head = current->next;
-	(*a)->tail->next = (*a)->head;
-	current->next = (*a)->head->next;
-	current->previous = (*a)->head;
-	(*a)->head->next->previous = current;
-	(*a)->head->next = current;
-	(*a)->head->previous = (*a)->tail;
-	save_op(a, b, op_list, sa);
+	if (a == NULL || *a == NULL || (*a)->tail == NULL)
+		return ;
+	if ((*a)->head == (*a)->tail)
+		return ;
+	(*a)->head = (*a)->head->next;
+	if ((*a)->tail == (*a)->head)
+		(*a)->tail = (*a)->head->next;
+	else
+	{
+		(*a)->tail->next->next = (*a)->head->next; 
+		(*a)->head->next = (*a)->head->previous;
+		(*a)->head->previous = (*a)->tail;
+		(*a)->tail->next->previous = (*a)->head;
+		(*a)->tail->next = (*a)->head;
+	}
+	save_op(a, b, sa);
 }
 
-void	ft_sb(t_head_tail **b, t_head_tail **a, t_list **op_list)
+void	ft_sb(t_head_tail **a, t_head_tail **b)
 {
-        t_stack	*current;
-
-	current = (*b)->head;
-	(*b)->head = current->next;
-	(*b)->tail->next = (*b)->head;
-	current->next = (*b)->head->next;
-	current->previous = (*b)->head;
-	(*b)->head->next->previous = current;
-	(*b)->head->next = current;
-	(*b)->head->previous = (*b)->tail;
-	save_op(a, b, op_list, sb);
+	if (b == NULL || *b == NULL || (*b)->tail == NULL)
+		return ;
+	ft_printf("check\n");	
+	if ((*b)->head == (*b)->tail)
+		return ;
+	(*b)->head = (*b)->head->next;
+	if ((*b)->tail == (*b)->head)
+		(*b)->tail = (*b)->head->next;
+	else
+	{
+		(*b)->tail->next->next = (*b)->head->next; 
+		(*b)->head->next = (*b)->head->previous;
+		(*b)->head->previous = (*b)->tail;
+		(*b)->tail->next->previous = (*b)->head;
+		(*b)->tail->next = (*b)->head;
+	}
+	save_op(a, b, sb);
 }
 
 static void	silent_swap(t_head_tail **stack)
 {
         t_stack	*current;
 
+	if ((*stack)->head == (*stack)->tail)
+		return ;
 	current = (*stack)->head;
 	(*stack)->head = current->next;
 	(*stack)->tail->next = (*stack)->head;
@@ -56,9 +69,14 @@ static void	silent_swap(t_head_tail **stack)
 	(*stack)->head->previous = (*stack)->tail;
 }
 
-void	ft_ss(t_head_tail **a, t_head_tail **b, t_list **op_list)
+void	ft_ss(t_head_tail **a, t_head_tail **b)
 {
+	if (a == NULL || *a == NULL || (*a)->tail == NULL)
+		return ;
+	if (b == NULL || *b == NULL || (*b)->tail == NULL)
+		return ;
 	silent_swap(a);
 	silent_swap(b);
-	save_op(a, b, op_list, ss);
+		return ;
+	save_op(a, b, ss);
 }
