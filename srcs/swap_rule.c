@@ -39,7 +39,6 @@ void	ft_sb(t_head_tail **a, t_head_tail **b)
 {
 	if (b == NULL || *b == NULL || (*b)->tail == NULL)
 		return ;
-	ft_printf("check\n");	
 	if ((*b)->head == (*b)->tail)
 		return ;
 	(*b)->head = (*b)->head->next;
@@ -54,7 +53,7 @@ void	ft_sb(t_head_tail **a, t_head_tail **b)
 		(*b)->tail->next->previous = (*b)->head;
 		(*b)->tail->next = (*b)->head;
 		if ((*b)->tail->previous == (*b)->head)
-			(*b)->tail->previous = (*b)->head->next;
+			(*b)->tail->previous = (*b)->head->next
 	}
 	save_op(a, b, sb);
 }
@@ -76,6 +75,7 @@ static void	silent_swap(t_head_tail **stack)
 		(*stack)->tail->next = (*stack)->head;
 		if ((*stack)->tail->previous == (*stack)->head)
 			(*stack)->tail->previous = (*stack)->head->next;
+			(*stack)->tail->previous = (*stack)->head->next
 	}
 }
 
