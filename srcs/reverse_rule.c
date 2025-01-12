@@ -14,7 +14,7 @@
 
 void	ft_rra(t_head_tail **a, t_head_tail **b)
 {
-	if (*a == NULL || (*a)->head == NULL)
+	if (a == NULL || *a == NULL || (*a)->head == NULL)
 		return ;
 	if ((*a)->head == (*a)->tail)
 		return ;
@@ -25,7 +25,7 @@ void	ft_rra(t_head_tail **a, t_head_tail **b)
 
 void	ft_rrb(t_head_tail **a, t_head_tail **b)
 {
-	if (*b == NULL || (*b)->head == NULL)
+	if (b == NULL || *b == NULL || (*b)->head == NULL)
 		return ;
 	if ((*b)->head == (*b)->tail)
 		return ;

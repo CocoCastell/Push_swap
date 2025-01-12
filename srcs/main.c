@@ -24,9 +24,7 @@ int	main(int argc, char *argv[])
 	if (argc == 2)
 		argv = ft_split(argv[1], ' ');
 	stack_init(&a, &b, argv, argc == 2);
-	ft_sa(&a, &b);
-	ft_ra(&a, &b);
-	//sort(&a, &b);
+	push_swap_sort(&a, &b);
 	ft_printf("\n");	
 	print_op(a->op_list);
 	ft_printf("\n");

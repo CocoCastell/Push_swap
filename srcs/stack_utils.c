@@ -46,7 +46,9 @@ static void	string_op(enum e_op op)
 void	print_op(t_list *op)
 {
 	t_list	*current;
-	
+	int	op_nb;
+
+	op_nb = 0;
 	if (op == NULL)
 		return ;
 	current = op;
@@ -54,21 +56,23 @@ void	print_op(t_list *op)
 	{
 		string_op((enum e_op)(uintptr_t)current->content);
 		current = current->next;
+		op_nb++;
 	}
+	ft_printf("\nOperations: %i\n", op_nb);
 }
 
-bool	is_sorted(t_head_tail **a)
+bool	is_sorted(t_head_tail **stack)
 {
 	t_stack	*next_node;
 	t_stack	*current;
 
-	if (a == NULL || *a == NULL || (*a)->head == NULL)
+	if (stack == NULL || *stack == NULL || (*stack)->head == NULL)
 		return (true);
-	next_node = (*a)->head->next;
-	current = (*a)->head;
+	next_node = (*stack)->head->next;
+	current = (*stack)->head;
 	if (current == next_node)
 		return (true);
-	while (next_node != (*a)->head)
+	while (next_node != (*stack)->head)
 	{
 		if (current->normalised_value > next_node->normalised_value)
 			return (false);

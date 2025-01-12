@@ -12,21 +12,7 @@
 
 #include "../includes/push_swap.h"
 
-void	sort(t_head_tail **a, t_head_tail **b)
-{
-	if ((*a)->size <= 1 || is_sorted(a) == true)
-		return ;
-	else if ((*a)->size == 2)
-		ft_sa(a, b);
-	else if ((*a)->size == 3)
-		sort_three(a, b);
-	/*else if ((*a)->size <= 5)
-		sort_five(a, b);
-	else
-		big_sort(a, b);*/
-}	
-
-void	sort_three(t_head_tail **a, t_head_tail **b)
+/*static void	sort_three_a(t_head_tail **a, t_head_tail **b)
 {
 	int	first;
 	int	second;
@@ -53,7 +39,38 @@ void	sort_three(t_head_tail **a, t_head_tail **b)
 	}
 }
 
-/*void	sort_five(t_head_tail **a)
+static void	sort_four_five_a(t_head_tail **a, t_head_tail **b)
 {
-
+	while ((*a)->size > 4)
+	{
+		if ((*a)->head->normalised_value == 1)
+			ft_pb(a, b);
+		else
+			ft_ra(a, b);
+	}
+	while ((*a)->size > 3)
+	{
+		if ((*a)->head->normalised_value == 0)
+			ft_pb(a, b);
+		else
+			ft_ra(a, b);
+	}
+	ft_sb(a, b);
+	sort_three_a(a, b);
+	ft_pa(a, b);
+	ft_pa(a, b);
 }*/
+
+void	push_swap_sort(t_head_tail **a, t_head_tail **b)
+{
+	/*if ((*a)->size <= 1 || is_sorted(a) == true)
+		return ;
+	else if ((*a)->size == 2)
+		ft_sa(a, b);
+	else if ((*a)->size == 3)
+		sort_three_a(a, b);
+	else if ((*a)->size <= 5)
+		sort_four_five_a(a, b);
+	else*/
+		big_sort(a, b);
+}

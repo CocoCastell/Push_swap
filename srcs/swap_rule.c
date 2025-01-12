@@ -24,10 +24,13 @@ void	ft_sa(t_head_tail **a, t_head_tail **b)
 	else
 	{
 		(*a)->tail->next->next = (*a)->head->next; 
+		(*a)->head->next->previous = (*a)->tail->next;
 		(*a)->head->next = (*a)->head->previous;
 		(*a)->head->previous = (*a)->tail;
 		(*a)->tail->next->previous = (*a)->head;
 		(*a)->tail->next = (*a)->head;
+		if ((*a)->tail->previous == (*a)->head)
+			(*a)->tail->previous = (*a)->head->next;
 	}
 	save_op(a, b, sa);
 }
@@ -45,28 +48,35 @@ void	ft_sb(t_head_tail **a, t_head_tail **b)
 	else
 	{
 		(*b)->tail->next->next = (*b)->head->next; 
+		(*b)->head->next->previous = (*b)->tail->next;
 		(*b)->head->next = (*b)->head->previous;
 		(*b)->head->previous = (*b)->tail;
 		(*b)->tail->next->previous = (*b)->head;
 		(*b)->tail->next = (*b)->head;
+		if ((*b)->tail->previous == (*b)->head)
+			(*b)->tail->previous = (*b)->head->next;
 	}
 	save_op(a, b, sb);
 }
 
 static void	silent_swap(t_head_tail **stack)
 {
-        t_stack	*current;
-
 	if ((*stack)->head == (*stack)->tail)
 		return ;
-	current = (*stack)->head;
-	(*stack)->head = current->next;
-	(*stack)->tail->next = (*stack)->head;
-	current->next = (*stack)->head->next;
-	current->previous = (*stack)->head;
-	(*stack)->head->next->previous = current;
-	(*stack)->head->next = current;
-	(*stack)->head->previous = (*stack)->tail;
+	(*stack)->head = (*stack)->head->next;
+	if ((*stack)->tail == (*stack)->head)
+		(*stack)->tail = (*stack)->head->next;
+	else
+	{
+		(*stack)->tail->next->next = (*stack)->head->next;
+		(*stack)->head->next->previous = (*stack)->tail->next;
+		(*stack)->head->next = (*stack)->head->previous;
+		(*stack)->head->previous = (*stack)->tail;
+		(*stack)->tail->next->previous = (*stack)->head;
+		(*stack)->tail->next = (*stack)->head;
+		if ((*stack)->tail->previous == (*stack)->head)
+			(*stack)->tail->previous = (*stack)->head->next;
+	}
 }
 
 void	ft_ss(t_head_tail **a, t_head_tail **b)

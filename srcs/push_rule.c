@@ -50,21 +50,8 @@ void    ft_pa(t_head_tail **a, t_head_tail **b)
 		(*b)->head->previous = (*b)->tail;
 	}
 	push(a, &current);
-	/*if ((*a)->head == NULL)
-        {
-                (*a)->head = current;
-                (*a)->tail = current;
-                current->next = current;
-                current->previous = current;
-        }
-        else
-        {
-                (*a)->tail->next = current;
-                current->previous = (*a)->tail;
-                current->next = (*a)->head;
-                current->next->previous = current;
-                (*a)->head = current;
-        }*/
+	(*a)->size++;
+	(*b)->size--;
 	save_op(a, b, pa);
 }
 
@@ -87,20 +74,7 @@ void	ft_pb(t_head_tail **a, t_head_tail **b)
 		(*a)->head->previous = (*a)->tail;
 	}
 	push(b, &current);
-	/*if ((*b)->head == NULL)
-	{
-		(*b)->head = current;
-		(*b)->tail = current;
-		current->next = current;
-		current->previous = current;
-	}
-	else
-	{
-		(*b)->tail->next = current;
-		current->previous = (*b)->tail;
-		current->next = (*b)->head;
-		current->next->previous = current;
-		(*b)->head = current;
-	}*/
+	(*b)->size++;
+	(*a)->size--;
 	save_op(a, b, pb);
 }

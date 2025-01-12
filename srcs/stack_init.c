@@ -155,5 +155,4 @@ void    stack_init(t_head_tail **a, t_head_tail **b, char **argv, bool flag_argc
 		i++;
         }
 	normalise_stack(a, 0);
-	print_stack(a);
 }
