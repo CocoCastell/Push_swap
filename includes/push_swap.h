@@ -21,6 +21,7 @@
 # include "../libft/ft_printf_b/includes/ft_printf_bonus.h"
 
 //Structures and enumerations
+	//stacks
 
 typedef struct	s_stack
 {
@@ -39,6 +40,7 @@ typedef struct	s_head_tail
 	int	size;
 }		t_head_tail;
 
+
 enum 	e_op
 {
 	null,
@@ -55,7 +57,30 @@ enum 	e_op
 	rrr
 };
 
-//temporaire
+	//chunks
+
+enum	e_loc
+{
+	TOP_A,
+	BOTTOM_A,
+	TOP_B,
+	BOTTOM_B
+};
+
+typedef struct	s_chunk
+{
+	enum e_loc	loc;
+	int		size;
+}		t_chunk;
+
+typedef struct	s_split_desti
+{
+	t_chunk	min;
+	t_chunk	mid;
+	t_chunk	max;
+}		t_split_desti;
+
+//Temporaire
 void    print_stack(t_head_tail **a);
 
 //Stack
@@ -86,7 +111,16 @@ void	save_op(t_head_tail **a, t_head_tail **b, enum e_op op);
 
 //Sorting
 
-void	sort(t_head_tail **a, t_head_tail **b);
-void	sort_three(t_head_tail **a, t_head_tail **b);
+void	push_swap_sort(t_head_tail **a, t_head_tail **b);
+void	init_desti_chunks(t_split_desti *desti);
+void	big_sort(t_head_tail **a, t_head_tail **b);
+void	sort_two(t_head_tail **a, t_head_tail **b, t_chunk *chunk);
+void	sort_three(t_head_tail **a, t_head_tail **b, t_chunk *chunk);
+void    rec_chunk_sort(t_head_tail **a, t_head_tail **b, t_chunk *chunk_to_sort);
+void	find_pivots(t_head_tail **a, t_head_tail **b, int pivot[2], t_chunk *chunk);
+void	set_split_loc(t_chunk *chunk_to_split, t_chunk *min, t_chunk *mid, t_chunk *max);
+void	move_to(t_head_tail **a, t_head_tail **b, enum e_loc loc_source, enum e_loc loc_desti);
+void	split_chunk(t_head_tail **a, t_head_tail **b, t_chunk *chunk_to_split, t_split_desti *desti);
+int	find_value(t_head_tail **a, t_head_tail **b, enum e_loc loc);
 
 #endif

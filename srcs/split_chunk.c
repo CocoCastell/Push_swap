@@ -17,9 +17,7 @@ void	split_chunk(t_head_tail **a, t_head_tail **b, t_chunk *chunk_to_split, t_sp
 	int	pivot[2];
 	int	value;
 
-	find_pivots(a, b, pivots, chunk_to_split);
-	find_top_pivots(a, b, pivots, chunk_to_split);
-	find_bottom_pivots(a, b, pivots, chunk_to_split);
+	find_pivots(a, b, pivot, chunk_to_split);
 	set_split_loc(chunk_to_split, &desti->min, &desti->mid, &desti->max);
 	while (chunk_to_split->size > 0)
 	{
@@ -45,21 +43,6 @@ void	split_chunk(t_head_tail **a, t_head_tail **b, t_chunk *chunk_to_split, t_sp
 	print_stack(a);
 	ft_printf("stack b\n");
 	print_stack(b);
-}
-
-int	find_value(t_head_tail **a, t_head_tail **b, enum e_loc loc)
-{
-	int	value;
-
-	if (loc == TOP_A)
-		value = (*a)->head->normalised_value;
-	else if (loc == BOTTOM_A)
-		value = (*a)->tail->normalised_value;
-	else if (loc == TOP_B)
-		value = (*b)->head->normalised_value;
-	else if (loc == BOTTOM_B)
-		value = (*b)->tail->normalised_value;
-	return (value);
 }
 
 void	set_split_loc(t_chunk *chunk_to_split, t_chunk *min, t_chunk *mid, t_chunk *max)
@@ -90,52 +73,61 @@ void	set_split_loc(t_chunk *chunk_to_split, t_chunk *min, t_chunk *mid, t_chunk 
 	}
 }
 
-void    find_bottom_pivots(t_head_tail **a, t_head_tail **b, int pivots[2], t_chunk *chunk)
+static int	find_bottom_pivots(t_head_tail **a, t_head_tail **b, t_chunk *chunk)
 {
-        int     size;
-        int     total;
+	int	min;
+	int	size;
         t_stack *current;
 
-        total = 0;
-        size = chunk->size;
+	size = chunk->size;
         if (chunk->loc == BOTTOM_A)
-                current = (*a)->head;
+                current = (*a)->tail;
         else if (chunk->loc == BOTTOM_B)
                 current = (*b)->tail;
-        while (size > 0)
+	min = current->normalised_value;
+        while (size-- > 0)
         {
-                if (chunk->loc == BOTTOM_A)
-                        total += current->normalised_value;
-                else if (chunk->loc == BOTTOM_B)
-                        total += current->normalised_value;
-                current = current->next;
-                size--;
+                if (chunk->loc == BOTTOM_A && current->normalised_value < min)
+			min = current->normalised_value;
+                else if (chunk->loc == BOTTOM_B && current->normalised_value < min)
+			min = current->normalised_value;
+                current = current->previous;
         }
-        pivots[0] = total / 3;
-        pivots[1] = total / 3 + pivots[0];
+	return (min);
 }
 
-void	find_top_pivots(t_head_tail **a, t_head_tail **b, int pivots[2], t_chunk *chunk)
+static int	find_top_pivots(t_head_tail **a, t_head_tail **b, t_chunk *chunk)
 {
+	int	min;
 	int	size;
-	int	total;
 	t_stack	*current;
-
-	total = 0;
+	
 	size = chunk->size;
-	if (chunk->loc == TOP_A)
-		current = (*a)->head;
-	else if (chunk->loc == TOP_B)
-		current = (*b)->tail;
-	while (size > 0)
+        if (chunk->loc == TOP_A)
+                current = (*a)->head;
+        else if (chunk->loc == TOP_B)
+                current = (*b)->head;
+	min = current->normalised_value;
+	while (size-- > 0)
 	{
-		if (chunk->loc == TOP_A)
-			total += current->normalised_value;
-		else if (chunk->loc == TOP_B)
-			total += current->normalised_value;
+		if (chunk->loc == TOP_A && current->normalised_value < min)
+				min = current->normalised_value;
+		else if (chunk->loc == TOP_B && current->normalised_value < min)
+				min = current->normalised_value;
 		current = current->next;
-		size--;
 	}
-	pivots[0] = total / 3;
-	pivots[1] = total / 3 + pivots[0];
+	return (min);
+}
+
+void	find_pivots(t_head_tail **a, t_head_tail **b, int pivot[2], t_chunk *chunk)
+{
+	int	min;
+
+	if (chunk->loc == TOP_A || chunk->loc == TOP_B)
+		min = find_top_pivots(a, b, chunk);
+	else if (chunk->loc == BOTTOM_A || chunk->loc == BOTTOM_B)
+		min = find_bottom_pivots(a, b, chunk);
+	pivot[0] = min + (chunk->size / 3);
+	pivot[1] = min + (chunk->size / 3 * 2);
+	ft_printf("min: %i, max: %i\n", pivot[0], pivot[1]);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_utils.c                                      :+:      :+:    :+:   */
+/*   utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -80,4 +80,19 @@ bool	is_sorted(t_head_tail **stack)
 		next_node = current->next;
 	}
 	return (true);
+}
+
+int     find_value(t_head_tail **a, t_head_tail **b, enum e_loc loc)
+{
+	int	value;
+
+	if (loc == TOP_A)
+		value = (*a)->head->normalised_value;
+	else if (loc == BOTTOM_A)
+		value = (*a)->tail->normalised_value;
+	else if (loc == TOP_B)
+		value = (*b)->head->normalised_value;
+	else if (loc == BOTTOM_B)
+		value = (*b)->tail->normalised_value;
+	return (value);
 }
