@@ -110,22 +110,22 @@ static void	add_value_to_stack(t_head_tail **a, long nbr)
 static int	stack_alloc(t_head_tail **a, t_head_tail **b)
 {
 	*a = malloc(sizeof(t_head_tail));
-	if (a == NULL)
+	if (*a == NULL)
 		return (-1);
 	(*a)->tail = NULL;
 	(*a)->head = NULL;
 	(*a)->size = 0;
 	(*a)->op_list = NULL;
 	*b = malloc(sizeof(t_head_tail));
-	if (b == NULL)
+	if (*b == NULL)
 	{
-		free(a);
+		free(*a);
 		return (-1);
 	}
 	(*b)->tail = NULL;
 	(*b)->head = NULL;
 	(*a)->size = 0;
-	(*b)->op_list = (*a)->op_list;
+	(*b)->op_list = NULL;
 	return (0);
 }
 
@@ -138,15 +138,15 @@ void    stack_init(t_head_tail **a, t_head_tail **b, char **argv, bool flag_argc
 		error_free(1 , argv, a, b);
 	i = 1;
         if (flag_argc_2 == 1)
-        {
 		i = 0;
-		if (check_synthax(argv[0]))
-			error_free(flag_argc_2, argv, NULL, NULL);
-	}
+	if (argv[i] == NULL)
+		error_free(flag_argc_2, argv, NULL, NULL);
 	while (argv[i] != NULL)
         {
+		if (check_synthax(argv[i]))
+			error_free(flag_argc_2, argv, NULL, NULL);
                 nbr = ft_atol(argv[i]);
-                if (nbr > INT_MAX || nbr < INT_MIN)
+		if (nbr > INT_MAX || nbr < INT_MIN)
                         error_free(flag_argc_2, argv, a, NULL);
                 if (check_repetition(nbr, a))
 			 error_free(flag_argc_2, argv, a, NULL);

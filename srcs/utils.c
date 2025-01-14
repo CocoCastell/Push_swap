@@ -26,7 +26,7 @@ static void	string_op(enum e_op op)
 {
 	char	*string[12];
 
-	if (op <0 || op > 11)
+	if (op < 0 || op > 11)
 		return ;
 	string[0] = "null";
 	string[1] = "sa";
@@ -43,22 +43,38 @@ static void	string_op(enum e_op op)
 	ft_printf("%s\n", string[op]);
 }
 
+/*void    print_op(t_list *op)
+{
+        t_list  *current;
+        int     op_nb;
+
+        op_nb = 0;
+        if (op == NULL)
+                return ;
+	opti(&op);
+        current = op;
+        while (current != NULL)
+        {
+                string_op((enum e_op)(uintptr_t)current->content);
+                current = current->next;
+                op_nb++;
+        }
+        ft_printf("\nOperations: %i\n", op_nb);
+}*/
+
 void	print_op(t_list *op)
 {
 	t_list	*current;
-	int	op_nb;
-
-	op_nb = 0;
+	
 	if (op == NULL)
 		return ;
+	opti(&op);
 	current = op;
 	while (current != NULL)
 	{
 		string_op((enum e_op)(uintptr_t)current->content);
 		current = current->next;
-		op_nb++;
 	}
-	ft_printf("\nOperations: %i\n", op_nb);
 }
 
 bool	is_sorted(t_head_tail **stack)

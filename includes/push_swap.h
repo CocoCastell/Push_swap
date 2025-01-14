@@ -87,6 +87,7 @@ void    print_stack(t_head_tail **a);
 
 void	print_op(t_list *op);
 void	free_matrix(char **argv);
+void	free_op_list(t_list **op_list);
 void	free_stack(t_head_tail **stack);
 void	stack_init(t_head_tail **a, t_head_tail **b, char **argv, bool flag_argc_2);
 void	error_free(bool flag_argc_2, char **argv, t_head_tail **a, t_head_tail **b);
@@ -111,11 +112,14 @@ void	save_op(t_head_tail **a, t_head_tail **b, enum e_op op);
 
 //Sorting
 
-void	push_swap_sort(t_head_tail **a, t_head_tail **b);
+void	opti(t_list **op);
+void	chunk_init(t_split_desti *desti);
 void	init_desti_chunks(t_split_desti *desti);
 void	big_sort(t_head_tail **a, t_head_tail **b);
+void	push_swap_sort(t_head_tail **a, t_head_tail **b);
 void	sort_two(t_head_tail **a, t_head_tail **b, t_chunk *chunk);
 void	sort_three(t_head_tail **a, t_head_tail **b, t_chunk *chunk);
+void	chunk_to_top(t_head_tail **a, t_head_tail **b, t_chunk *chunk_to_sort);
 void    rec_chunk_sort(t_head_tail **a, t_head_tail **b, t_chunk *chunk_to_sort);
 void	find_pivots(t_head_tail **a, t_head_tail **b, int pivot[2], t_chunk *chunk);
 void	set_split_loc(t_chunk *chunk_to_split, t_chunk *min, t_chunk *mid, t_chunk *max);

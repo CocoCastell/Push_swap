@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                        :+:      :+:    :+:   */
+/*   chunk_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,39 +12,17 @@
 
 #include "../includes/push_swap.h"
 
-int	main(int argc, char *argv[])
+void	chunk_init(t_split_desti *desti)
 {
-	t_head_tail *a;
-	t_head_tail *b;
-
-	a = NULL;
-	b = NULL;
-	if (argc == 1)
-		return (0);
-	if (argc == 2)
-		argv = ft_split(argv[1], ' ');
-	stack_init(&a, &b, argv, argc == 2);
-	push_swap_sort(&a, &b);
-	print_op(a->op_list);
-//	print_stack(&a);
-	free_stack(&b);
-	free_stack(&a);
-	return (0);
+	desti->min.size = 0;
+	desti->mid.size = 0;
+	desti->max.size = 0;
 }
 
-void	free_op_list(t_list **op_list)
+void	chunk_to_top(t_head_tail **a, t_head_tail **b, t_chunk *chunk_to_sort)
 {
-	t_list	*current;
-	t_list	*tmp;
-	
-	if (op_list == NULL || *op_list == NULL)
-		return;
-	current = *op_list;
-	while (current != NULL)
-	{
-		tmp = current->next;
-		free(current);
-		current = tmp;
-	}
-	*op_list = NULL;
+	if (chunk_to_sort->loc == BOTTOM_B && (*b)->size == chunk_to_sort->size)
+		chunk_to_sort->loc = TOP_B;
+	if (chunk_to_sort->loc == BOTTOM_A && (*a)->size == chunk_to_sort->size)
+		chunk_to_sort->loc = TOP_A;
 }

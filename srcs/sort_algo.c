@@ -12,7 +12,7 @@
 
 #include "../includes/push_swap.h"
 
-/*static void	sort_three_a(t_head_tail **a, t_head_tail **b)
+static void	sort_three_a(t_head_tail **a, t_head_tail **b)
 {
 	int	first;
 	int	second;
@@ -21,7 +21,7 @@
 	first = (*a)->head->normalised_value;
 	second = (*a)->head->next->normalised_value;
 	third = (*a)->tail->normalised_value;
-		if (first > second && second < third && third > first)
+	if (first > second && second < third && third > first)
 		ft_sa(a, b);
 	else if (first < second && second > third && third < first)
 		ft_rra(a, b);
@@ -32,26 +32,32 @@
 		ft_sa(a, b);
 		ft_rra(a, b);
 	}
-	else
+	else if (first < second && first < third && second > third)
 	{
 		ft_sa(a, b);
 		ft_ra(a ,b);
 	}
 }
 
-static void	sort_four_five_a(t_head_tail **a, t_head_tail **b)
+static void	sort_four_five_a(t_head_tail **a, t_head_tail **b, int size)
 {
-	while ((*a)->size > 4)
+	while (size > 4)
 	{
 		if ((*a)->head->normalised_value == 1)
+		{
 			ft_pb(a, b);
+			size--;
+		}
 		else
 			ft_ra(a, b);
 	}
-	while ((*a)->size > 3)
+	while (size > 3)
 	{
 		if ((*a)->head->normalised_value == 0)
+		{
 			ft_pb(a, b);
+			size--;
+		}
 		else
 			ft_ra(a, b);
 	}
@@ -59,18 +65,18 @@ static void	sort_four_five_a(t_head_tail **a, t_head_tail **b)
 	sort_three_a(a, b);
 	ft_pa(a, b);
 	ft_pa(a, b);
-}*/
+}
 
 void	push_swap_sort(t_head_tail **a, t_head_tail **b)
 {
-	/*if ((*a)->size <= 1 || is_sorted(a) == true)
+	if ((*a)->size <= 1 || is_sorted(a) == true)
 		return ;
 	else if ((*a)->size == 2)
 		ft_sa(a, b);
 	else if ((*a)->size == 3)
 		sort_three_a(a, b);
 	else if ((*a)->size <= 5)
-		sort_four_five_a(a, b);
-	else*/
+		sort_four_five_a(a, b, (*a)->size);
+	else
 		big_sort(a, b);
 }

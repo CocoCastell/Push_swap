@@ -24,23 +24,30 @@ void	free_matrix(char **argv)
 	free(argv);
 }
 
-void	free_stack(t_head_tail **stack)
+void free_stack(t_head_tail **stack)
 {
-	t_stack *tmp;
-	t_stack	*current;
+    t_stack *tmp;
+    t_stack *current;
 
-	if (stack == NULL || *stack == NULL)
-		return ;
-	current = (*stack)->head;
-	while (current != (*stack)->tail)
-	{
-		tmp = current->next;
-		free(current);
-		current = tmp;
-	}
+    if (stack == NULL || *stack == NULL)
+        return;
+    if ((*stack)->op_list != NULL)
+	free_op_list(&((*stack)->op_list));
+    if ((*stack)->head == NULL)
+    {
+        free(*stack);
+        *stack = NULL;
+        return;
+    }
+    current = (*stack)->head;
+    do
+    {
+        tmp = current->next;
 	free(current);
-	(*stack)->head = NULL;
-	(*stack)->tail = NULL;
+	current = tmp;
+    } while (current != (*stack)->head);
+    free(*stack);
+    *stack = NULL;
 }
 
 void	error_free(bool flag_argc_2, char **argv, t_head_tail **a, t_head_tail **b)
@@ -59,7 +66,8 @@ int	check_synthax(char *str)
 		return (1);
 	if (*str != '-' && *str != '+' && (*str < '0' || *str > '9'))
 		return (1);
-	str++;
+	if (*str == '-' || *str == '+')
+		str++;
 	if (*str == '\0')
 		return (1);
 	while (*str)
@@ -76,7 +84,7 @@ int	check_repetition(long nbr, t_head_tail **a)
 	t_stack *current;
 
 	if ((*a)->tail == NULL)
-			return (0);
+		return (0);
 	current = (*a)->head;
 	while (current != (*a)->tail)
 	{

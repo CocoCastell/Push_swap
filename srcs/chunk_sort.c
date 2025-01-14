@@ -24,7 +24,8 @@ void	big_sort(t_head_tail **a, t_head_tail **b)
 void	rec_chunk_sort(t_head_tail **a, t_head_tail **b, t_chunk *chunk_to_sort)
 {
 	t_split_desti	desti;
-
+	
+	chunk_to_top(a, b, chunk_to_sort);
 	if (chunk_to_sort->size <= 3)
 	{
 		if (chunk_to_sort->size == 3)
@@ -40,10 +41,7 @@ void	rec_chunk_sort(t_head_tail **a, t_head_tail **b, t_chunk *chunk_to_sort)
 		}
 		return ;
 	}
-	desti.min.size = 0;
-	desti.mid.size = 0;
-	desti.max.size = 0;
-	//ft_printf("check\n");
+	chunk_init(&desti);
 	split_chunk(a, b, chunk_to_sort, &desti);
 	rec_chunk_sort(a, b, &desti.max);
 	rec_chunk_sort(a, b, &desti.mid);

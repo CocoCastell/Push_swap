@@ -39,10 +39,6 @@ void	split_chunk(t_head_tail **a, t_head_tail **b, t_chunk *chunk_to_split, t_sp
 		}
 		chunk_to_split->size--;
 	}
-	ft_printf("stack a\n");
-	print_stack(a);
-	ft_printf("stack b\n");
-	print_stack(b);
 }
 
 void	set_split_loc(t_chunk *chunk_to_split, t_chunk *min, t_chunk *mid, t_chunk *max)
@@ -129,5 +125,4 @@ void	find_pivots(t_head_tail **a, t_head_tail **b, int pivot[2], t_chunk *chunk)
 		min = find_bottom_pivots(a, b, chunk);
 	pivot[0] = min + (chunk->size / 3);
 	pivot[1] = min + (chunk->size / 3 * 2);
-	ft_printf("min: %i, max: %i\n", pivot[0], pivot[1]);
 }
