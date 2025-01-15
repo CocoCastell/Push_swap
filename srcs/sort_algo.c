@@ -48,6 +48,8 @@ static void	sort_four_five_a(t_head_tail **a, t_head_tail **b, int size)
 			ft_pb(a, b);
 			size--;
 		}
+		else if ((*a)->tail->normalised_value == 1)
+			ft_rra(a, b);
 		else
 			ft_ra(a, b);
 	}
@@ -58,13 +60,13 @@ static void	sort_four_five_a(t_head_tail **a, t_head_tail **b, int size)
 			ft_pb(a, b);
 			size--;
 		}
+		else if ((*a)->tail->normalised_value == 0)
+			ft_rra(a, b);
 		else
 			ft_ra(a, b);
 	}
 	ft_sb(a, b);
 	sort_three_a(a, b);
-	ft_pa(a, b);
-	ft_pa(a, b);
 }
 
 void	push_swap_sort(t_head_tail **a, t_head_tail **b)
@@ -76,7 +78,11 @@ void	push_swap_sort(t_head_tail **a, t_head_tail **b)
 	else if ((*a)->size == 3)
 		sort_three_a(a, b);
 	else if ((*a)->size <= 5)
+	{
 		sort_four_five_a(a, b, (*a)->size);
+		ft_pa(a, b);
+		ft_pa(a, b);
+	}
 	else
 		big_sort(a, b);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,40 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "checker.h"
 
 int	main(int argc, char *argv[])
 {
-	t_head_tail *a;
-	t_head_tail *b;
+	t_head_tail	*a;
+	t_head_tail	*b;
+	t_list		*op;
+	int		check;
 
 	a = NULL;
 	b = NULL;
+	op = NULL;
+	check = 0;
 	if (argc == 1)
 		return (0);
 	if (argc == 2)
 		argv = ft_split(argv[1], ' ');
 	stack_init(&a, &b, argv, argc == 2);
-	push_swap_sort(&a, &b);
-	print_op(a->op_list);
-	free_stack(&b);
+	while (check == 0)
+		check = get_rules(&op, 0);
+	apply_rules(op, &a, &b);
+	if (is_sorted(&a) && is_empty(b))
+		ft_printf("OK\n");
+	else
+		ft_printf("KO\n");
+	ft_lstclear(&op, del);
 	free_stack(&a);
+	free_stack(&b);
 	return (0);
-}
-
-void	free_op_list(t_list **op_list)
-{
-	t_list	*current;
-	t_list	*tmp;
-	
-	if (op_list == NULL || *op_list == NULL)
-		return;
-	current = *op_list;
-	while (current != NULL)
-	{
-		tmp = current->next;
-		free(current);
-		current = tmp;
-	}
-	*op_list = NULL;
 }

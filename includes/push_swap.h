@@ -20,15 +20,16 @@
 # include "../libft/gnl_b/includes/get_next_line_bonus.h"
 # include "../libft/ft_printf_b/includes/ft_printf_bonus.h"
 
+
 //Structures and enumerations
 	//stacks
 
 typedef struct	s_stack
 {
-	int	real_value;
-	int	normalised_value;
-	struct s_stack *previous;
-	struct s_stack *next;
+	int		real_value;
+	int		normalised_value;
+	struct s_stack	*previous;
+	struct s_stack	*next;
 }		t_stack;
 
 
@@ -80,10 +81,9 @@ typedef struct	s_split_desti
 	t_chunk	max;
 }		t_split_desti;
 
-//Temporaire
-void    print_stack(t_head_tail **a);
-
 //Stack
+
+void	print_stack(t_head_tail **a);
 
 void	print_op(t_list *op);
 void	free_matrix(char **argv);

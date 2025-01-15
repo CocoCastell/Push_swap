@@ -1,9 +1,14 @@
 NAME = push_swap
 CFLAGS = -Wall -Werror -Wextra
 
+LIBFT = libft/
 INC = ./includes/push_swap.h
 SRCS = $(wildcard srcs/*.c)
-LIBFT = libft/
+OBJS = $(SRCS:.c=.o)
+
+INC_BONUS = bonus/checker.h
+SRCS_BONUS = $(wildcard bonus/*.c)
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 # Colors
 
@@ -24,13 +29,20 @@ $(NAME) : $(SRCS) $(INC) Makefile
 	@cp $(LIBFT)libft.a .
 	@cc $(CFLAGS) $(SRCS) libft.a -o $@
 
-clean :
-	@rm -f $(OBJS)
+bonus : clean fclean $(SRCS_BONUS) $(INC_BONUS) Makefile
+	@make --no-print-directory -C $(LIBFT)
+	@cp $(LIBFT)libft.a .
+	@cc $(CFLAGS) $(SRCS_BONUS) libft.a -o push_swap_bonus
+
+clean:
+	@rm -rf $(OBJS)
+	@rm -rf $(OBJS_BONUS)
 	@make clean --no-print-directory -C $(LIBFT)
+
 fclean :
-	@rm -f $(NAME) libft.a
+	@rm -f $(NAME) push_swap_bonus libft.a
 	@make fclean --no-print-directory -C $(LIBFT)
 
-re : clean all
+re : fclean all
 
 .PHONY: all clean fclean re

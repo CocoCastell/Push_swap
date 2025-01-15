@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                        :+:      :+:    :+:   */
+/*   rotate_rule.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,40 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "checker.h"
 
-int	main(int argc, char *argv[])
+void	rot_a(t_head_tail **a)
 {
-	t_head_tail *a;
-	t_head_tail *b;
-
-	a = NULL;
-	b = NULL;
-	if (argc == 1)
-		return (0);
-	if (argc == 2)
-		argv = ft_split(argv[1], ' ');
-	stack_init(&a, &b, argv, argc == 2);
-	push_swap_sort(&a, &b);
-	print_op(a->op_list);
-	free_stack(&b);
-	free_stack(&a);
-	return (0);
+	if (a == NULL || *a == NULL || (*a)->head == NULL)
+		return ;
+	if ((*a)->head == (*a)->tail)
+		return ;	
+	(*a)->tail = (*a)->head;
+	(*a)->head = (*a)->tail->next;
 }
 
-void	free_op_list(t_list **op_list)
+void	rot_b(t_head_tail **b)
 {
-	t_list	*current;
-	t_list	*tmp;
-	
-	if (op_list == NULL || *op_list == NULL)
-		return;
-	current = *op_list;
-	while (current != NULL)
-	{
-		tmp = current->next;
-		free(current);
-		current = tmp;
-	}
-	*op_list = NULL;
+	if (b == NULL || *b == NULL || (*b)->head == NULL)
+		return ;
+	if ((*b)->head == (*b)->tail)
+		return ;
+	(*b)->tail = (*b)->head;
+	(*b)->head = (*b)->tail->next;
+}
+
+void	rot_a_b(t_head_tail **a, t_head_tail **b)
+{
+	if (a == NULL || *a == NULL || (*a)->head == NULL)
+		return ;
+	if (b == NULL || *b == NULL || (*b)->head == NULL)
+		return ;
+	rot_a(a);
+	rot_b(b);
 }

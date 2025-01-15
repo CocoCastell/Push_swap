@@ -50,6 +50,5 @@ void	ft_rrr(t_head_tail **a, t_head_tail **b)
 		return ;
 	silent_rr(a);
 	silent_rr(b);
-		return ;
 	save_op(a, b, rrr);
 }

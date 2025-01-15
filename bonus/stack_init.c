@@ -1,3 +1,5 @@
+
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -10,39 +12,41 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "checker.h"
 
-void	normalise_stack(t_head_tail **a, int i)
+/*void	print_stack_bonus(t_head_tail **a)
 {
-        t_stack	*current;
-	t_stack	*next_node;
+	t_stack	*current;
 
-	if (a == NULL || *a == NULL || (*a)->head == NULL)
-		return ;
-        current = (*a)->head;
+	current = (*a)->head;
+	if ((*a)->tail != NULL)
+	{
 	while (current != (*a)->tail)
 	{
-        	i = 0;
-		next_node = current->next;
-		while (next_node != current)
-		{
-			if (next_node->real_value < current->real_value)
-				i++;
-			next_node = next_node->next;
-		}
-		current->normalised_value = i;
+		if (current->real_value < 9)
+			ft_printf("%i      |    %i\n", current->real_value, current->real_value);
+		else if (current->real_value < 99)
+			ft_printf("%i     |    %i\n", current->real_value, current->real_value);
+		else if (current->real_value < 999)
+			ft_printf("%i    |    %i\n", current->real_value, current->real_value);
+		else if (current->real_value < 9999)
+			ft_printf("%i   |    %i\n", current->real_value, current->real_value);
+		else if (current->real_value < 99999)
+			ft_printf("%i  |    %i\n", current->real_value, current->real_value);
 		current = current->next;
 	}
-	i = 0;
-	next_node = current->next;
-	while (next_node != current)
-	{
-		if (next_node->real_value < current->real_value)
-			i++;
-		next_node = next_node->next;
+        if (current->real_value < 9)
+		ft_printf("%i      |    %i\n", current->real_value, current->real_value);
+	else if (current->real_value < 99)
+		ft_printf("%i     |    %i\n", current->real_value, current->real_value);
+	else if (current->real_value < 999)
+		ft_printf("%i    |    %i\n", current->real_value, current->real_value);
+	else if (current->real_value < 9999)
+		ft_printf("%i   |    %i\n", current->real_value, current->real_value);
+	else if (current->real_value < 99999)
+		ft_printf("%i  |    %i\n", current->real_value, current->real_value);
 	}
-	current->normalised_value = i;
-}
+}*/
 
 static void	add_value_to_stack(t_head_tail **a, long nbr)
 {
@@ -55,7 +59,6 @@ static void	add_value_to_stack(t_head_tail **a, long nbr)
 		exit(1);
 	}
 	new_node->real_value = nbr;
-	new_node->normalised_value = -1;
 	if ((*a)->tail == NULL)
 	{
 		new_node->next = new_node;
@@ -80,8 +83,6 @@ static int	stack_alloc(t_head_tail **a, t_head_tail **b)
 		return (-1);
 	(*a)->tail = NULL;
 	(*a)->head = NULL;
-	(*a)->size = 0;
-	(*a)->op_list = NULL;
 	*b = malloc(sizeof(t_head_tail));
 	if (*b == NULL)
 	{
@@ -90,8 +91,6 @@ static int	stack_alloc(t_head_tail **a, t_head_tail **b)
 	}
 	(*b)->tail = NULL;
 	(*b)->head = NULL;
-	(*a)->size = 0;
-	(*b)->op_list = NULL;
 	return (0);
 }
 
@@ -117,8 +116,6 @@ void    stack_init(t_head_tail **a, t_head_tail **b, char **argv, bool flag_argc
                 if (check_repetition(nbr, a))
 			 error_free(flag_argc_2, argv, a, NULL);
                 add_value_to_stack(a, nbr);
-		(*a)->size++;
 		i++;
         }
-	normalise_stack(a, 0);
 }

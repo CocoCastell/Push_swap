@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                        :+:      :+:    :+:   */
+/*   reverse_rule.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,40 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "checker.h"
 
-int	main(int argc, char *argv[])
+void	rev_a(t_head_tail **a)
 {
-	t_head_tail *a;
-	t_head_tail *b;
-
-	a = NULL;
-	b = NULL;
-	if (argc == 1)
-		return (0);
-	if (argc == 2)
-		argv = ft_split(argv[1], ' ');
-	stack_init(&a, &b, argv, argc == 2);
-	push_swap_sort(&a, &b);
-	print_op(a->op_list);
-	free_stack(&b);
-	free_stack(&a);
-	return (0);
+	if (a == NULL || *a == NULL || (*a)->head == NULL)
+		return ;
+	if ((*a)->head == (*a)->tail)
+		return ;
+	(*a)->head = (*a)->tail;
+	(*a)->tail = (*a)->head->previous;
 }
 
-void	free_op_list(t_list **op_list)
+void	rev_b(t_head_tail **b)
 {
-	t_list	*current;
-	t_list	*tmp;
-	
-	if (op_list == NULL || *op_list == NULL)
-		return;
-	current = *op_list;
-	while (current != NULL)
-	{
-		tmp = current->next;
-		free(current);
-		current = tmp;
-	}
-	*op_list = NULL;
+	if (b == NULL || *b == NULL || (*b)->head == NULL)
+		return ;
+	if ((*b)->head == (*b)->tail)
+		return ;
+	(*b)->head = (*b)->tail;
+	(*b)->tail = (*b)->head->previous;
+}
+
+void	rev_a_b(t_head_tail **a, t_head_tail **b)
+{
+	if (a == NULL || *a == NULL || (*a)->head == NULL)
+		return ;
+	if (b == NULL || *b == NULL || (*b)->head == NULL)
+		return ;
+	rev_a(a);
+	rev_b(b);
 }
