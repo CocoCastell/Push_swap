@@ -9,6 +9,7 @@ OBJS = $(SRCS:.c=.o)
 INC_BONUS = bonus/checker.h
 SRCS_BONUS = $(wildcard bonus/*.c)
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
+NAME_BONUS = checker
 
 # Colors
 
@@ -32,7 +33,7 @@ $(NAME) : $(SRCS) $(INC) Makefile
 bonus : clean fclean $(SRCS_BONUS) $(INC_BONUS) Makefile
 	@make --no-print-directory -C $(LIBFT)
 	@cp $(LIBFT)libft.a .
-	@cc $(CFLAGS) $(SRCS_BONUS) libft.a -o push_swap_bonus
+	@cc $(CFLAGS) $(SRCS_BONUS) libft.a -o $(NAME_BONUS)
 
 clean:
 	@rm -rf $(OBJS)
@@ -40,7 +41,7 @@ clean:
 	@make clean --no-print-directory -C $(LIBFT)
 
 fclean :
-	@rm -f $(NAME) push_swap_bonus libft.a
+	@rm -f $(NAME) $(NAME_BONUS) libft.a
 	@make fclean --no-print-directory -C $(LIBFT)
 
 re : fclean all
