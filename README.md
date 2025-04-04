@@ -27,5 +27,5 @@ All the instructions are stocked in a simple list, and an optimisation is then p
 
 # Results
 
-100 numbers --> ~720 instructions.
-500 numbers --> ~4200 instructions.
+100 numbers --> ~720 instructions  
+500 numbers --> ~4200 instructions  
