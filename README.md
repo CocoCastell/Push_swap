@@ -3,6 +3,8 @@
 This algorithmic project is about sorting data with only 2 stacks and using the minimum of a limited set of instructions.
 To get the max grade, the algo must be able to sort 100 and 500 numbers in, respectively, less than 800 and less than 5500 operations.
 
+The bonus part consist of implementing a simple sorted checker.  
+
 # Instructions
 
 | Name | Purpose |
