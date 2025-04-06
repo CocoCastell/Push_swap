@@ -1,6 +1,6 @@
 # About Push_swap
 
-This algorithmic project is about sorting data with only 2 stacks and using the minimum of a limited set of instructions.
+This algorithmic project is about sorting numbers (without duplicates) with only 2 stacks and using the minimum of a limited set of instructions.
 To get the max grade, the algo must be able to sort 100 and 500 numbers in, respectively, less than 800 and less than 5500 operations.
 
 The bonus part consist of implementing a simple sorted checker.  
@@ -21,6 +21,17 @@ The bonus part consist of implementing a simple sorted checker.
 |  rrb | reverse rotate b |
 |  rrr | reverse rotate a & b |
 
+# How to run
+
+First, compile in the directory with
+```
+make
+```
+Then run the programm with your set of numbers
+```
+./push_swap 4 3 -1 32 43 -23
+```
+
 # Algorithm
 
 I used a quick sort algo with double linked list.  
@@ -29,6 +40,7 @@ All the instructions are stocked in a simple list, and an optimisation is then p
 
 # Results
 
+✅ 125/100  
 100 numbers --> ~720 instructions  
 500 numbers --> ~4200 instructions  
 
