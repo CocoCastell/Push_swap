@@ -31,6 +31,14 @@ Then run the programm with your set of numbers
 ```
 ./push_swap 4 3 -1 32 43 -23
 ```
+For the bonus, provide the set of numbers as arguments and the instructions as input.
+```
+make bonus
+```
+```
+./checker 4 3 -1 32 43 -23
+sa  pb  ss  rra
+```
 
 # Algorithm
 
